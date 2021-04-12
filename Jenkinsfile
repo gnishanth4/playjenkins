@@ -26,15 +26,13 @@ pipeline {
 
     stage('Push Image') {
       steps{
-       
          script {
           withDockerRegistry([ credentialsId: registryCredential,url: ""] ) {
-            
             sh 'docker push gnishanth444/productsonkubernetes":$BUILD_NUMBER"'
           }
-
       }
     }
+    }  
 
     stage('Deploy App') {
       steps {
