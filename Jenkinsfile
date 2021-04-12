@@ -1,7 +1,8 @@
 pipeline {
 
   environment {
-    registry = "192.168.1.81:5000/justme/myweb"
+    registry = "gnishanth444/productsonkubernetes"
+    registryCredential = 'docker-creds'
     dockerImage = ""
   }
 
@@ -25,11 +26,13 @@ pipeline {
 
     stage('Push Image') {
       steps{
-        script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
+       
+         script {
+          withDockerRegistry([ credentialsId: registryCredential,url: ""] ) {
+            
+            sh 'docker push gnishanth444/productsonkubernetes":$BUILD_NUMBER"'
           }
-        }
+
       }
     }
 
